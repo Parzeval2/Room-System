@@ -18,7 +18,9 @@ def difference_in_time(time1, time2):
     time1_s = (time1[0] * 3600) + (time1[1] * 60) + time1[2]
     time2_s = (time2[0] * 3600) + (time2[1] * 60) + time2[2]
     timediff_s = time1_s - time2_s
-    timediff = [int(((timediff_s - (timediff_s%3600)) / 3600)), int(((((timediff_s%3600) - (timediff_s%3600)%60)) / 60)), int((((timediff_s%3600)%60)))]
+    timediff = [int(((timediff_s - (timediff_s%3600)) / 3600)),
+                 int(((((timediff_s%3600) - (timediff_s%3600)%60)) / 60)),
+                   int((((timediff_s%3600)%60)))]
     return timediff
 
 print(difference_in_time([13, 1, 1],[12, 25, 25]))
