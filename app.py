@@ -43,8 +43,19 @@ def hello_world():
     return render_template("index.html", title="Hello")
 
 
-@app.route("/register_group")
+@app.route("/register_group", methods=["GET", "POST"])
 def register_group():
+    if request.method == 'Post':
+        email = request.form.get("email")
+        CWID = request.form.get("CWID")
+        size = int(request.form.get("size"))
+
+        if size < 3:
+            flash("Groups must be at least 3 people")
+        else:
+            #add group to database
+    if request.method == 'GET':
+        pass
     return render_template("register_group.html")
 
 
