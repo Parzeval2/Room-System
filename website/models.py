@@ -15,6 +15,7 @@ def start_time():
 class GroupInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     CWID = db.Column(db.Integer)
-    group_size = db.Column(db.Integer)
+    size = db.Column(db.Integer)
+    email = db.Column(db.String(100))
     group_assigned_rooms = db.Column(db.Integer)
     start_time = db.Column(start_time())

@@ -1,8 +1,12 @@
 from flask import *
 from timeloop import Timeloop
-
+from flask_sqlalchemy import SQLAlchemy
 from website import Queue
+from website.init import *
+
+from website.models import GroupInfo
 from website.Room_Class import Room
+
 
 # setup for flask app
 app = Flask(__name__)
@@ -53,7 +57,11 @@ def register_group():
         if size < 3:
             flash("Groups must be at least 3 people")
         else:
-            #add group to database
+            new_group = GroupInfo(email=email, CWID=CWID, size=size)
+            db.session.add(new_group)
+            db.session.commit()
+            flash("Your group has been created")
+            return redirect(url_for("home"))
     if request.method == 'GET':
         pass
     return render_template("register_group.html")
