@@ -1,9 +1,8 @@
 from flask import *
 from timeloop import Timeloop
 
-import Group_Class
-import Queue
-from Room_Class import Room
+from website import Queue
+from website.Room_Class import Room
 
 # setup for flask app
 app = Flask(__name__)
