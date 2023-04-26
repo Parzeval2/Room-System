@@ -1,4 +1,5 @@
 class Room:
+
     def __init__(self, room_id, occupancy: bool = False):
         self.occupancy = occupancy
         self.room_id = room_id

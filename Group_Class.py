@@ -1,9 +1,25 @@
-#class for the group that involves members, contact info
+# class for the group that involves members, contact info
+from datetime import datetime
+
 
 class Group:
-    def __init__(self, size, contact):
+
+    def __init__(self, size, contact, CWID):
         self.size = size
         self.contact = contact
+        self.assigned_room = None
+        self.CWID = CWID
+        self.start_time = self.start_time()
+
+    def start_time(self):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        time_list = current_time.split(":")
+        time_list_int = [int(i) for i in time_list]
+        return time_list_int
+
+    def assign_room(self, room):
+        self.assigned_room = room
 
     @property
     def size(self):
