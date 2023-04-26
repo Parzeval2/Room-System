@@ -1,6 +1,9 @@
-#class for the group that involves members, contact info
+# class for the group that involves members, contact info
 from datetime import datetime
+
+
 class Group:
+
     def __init__(self, size, contact, CWID):
         self.size = size
         self.contact = contact
