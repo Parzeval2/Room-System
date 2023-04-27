@@ -11,7 +11,8 @@ def start_time():
     time_list_int = [int(i) for i in time_list]
     return time_list_int
 
-
+#this database model is very similar to a clas structure but store info
+# more efficiently because its built using an SQL database in tables
 class GroupInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     CWID = db.Column(db.Integer)
