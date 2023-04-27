@@ -1,7 +1,7 @@
 
 #db model for group information
 
-from init import db
+from .  import db
 from datetime import datetime
 
 def start_time():
@@ -18,4 +18,4 @@ class GroupInfo(db.Model):
     size = db.Column(db.Integer)
     email = db.Column(db.String(100))
     group_assigned_rooms = db.Column(db.Integer)
-    start_time = db.Column(start_time())
+    # start_time = db.Column(start_time())
