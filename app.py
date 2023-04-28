@@ -18,7 +18,6 @@ from website import create_app
 # }
 # tl = Timeloop()
 
-
 # @tl.job(interval=15)
 # def update_rooms():
 #     for key, value in ROOMS.items():
@@ -27,7 +26,6 @@ from website import create_app
 #             value.occupancy = True
 #             queue.leave_queue(queue.groups[0])
 #             flash(f"You have been assigned to Room {key}")
-
 
 app = create_app()
 
