@@ -1,5 +1,4 @@
 # db model for group information
-
 from datetime import datetime
 
 from . import db
