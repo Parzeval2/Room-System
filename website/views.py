@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import GroupInfo
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+
 from . import db
+from .models import GroupInfo
 
 views = Blueprint("view", __name__)
 

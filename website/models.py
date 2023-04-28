@@ -1,7 +1,8 @@
 # db model for group information
 
-from . import db
 from datetime import datetime
+
+from . import db
 
 
 def start_time():

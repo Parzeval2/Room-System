@@ -1,8 +1,8 @@
 from flask import *
-from timeloop import Timeloop
 from flask_sqlalchemy import SQLAlchemy
-from website import create_app
+from timeloop import Timeloop
 
+from website import create_app
 
 # setup for flask app
 # ROOMS = {
