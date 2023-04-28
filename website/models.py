@@ -1,4 +1,3 @@
-
 # db model for group information
 
 from . import db
@@ -11,6 +10,7 @@ def start_time():
     time_list = current_time.split(":")
     time_list_int = [int(i) for i in time_list]
     return time_list_int
+
 
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
