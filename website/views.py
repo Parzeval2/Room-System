@@ -4,11 +4,15 @@ from . import db
 
 views = Blueprint("view", __name__)
 
-#this file is essentially the switching for every new page on the site
-#itll redirect on some functions and display pages of others
+# this file is essentially the switching for every new page on the site
+# itll redirect on some functions and display pages of others
+
+
 @views.route("/")
 def sendhome():
     return redirect(url_for("home"))
+
+
 @views.route("/home")
 def hello_world():
     return '<h1>Test</h1>'

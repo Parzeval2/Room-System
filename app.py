@@ -29,11 +29,7 @@ from website import create_app
 #             flash(f"You have been assigned to Room {key}")
 
 
-
 app = create_app()
 
 if __name__ == "__main__":
     app.run()
-
-
-

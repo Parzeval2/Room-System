@@ -1,8 +1,9 @@
 
-#db model for group information
+# db model for group information
 
-from .  import db
+from . import db
 from datetime import datetime
+
 
 def start_time():
     now = datetime.now()
@@ -11,8 +12,10 @@ def start_time():
     time_list_int = [int(i) for i in time_list]
     return time_list_int
 
-#this database model is very similar to a clas structure but store info
+# this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
+
+
 class GroupInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     CWID = db.Column(db.Integer)
