@@ -16,15 +16,16 @@ views = Blueprint("view", __name__)
 
 @views.route("/")
 def sendhome():
-    return redirect(url_for("home"))
-
+    return redirect("/home")
 
 @views.route("/home")
-def hello_world():
-    return "<h1>Test</h1>"
+def home():
+    return render_template("HomePage.html")
+@views.route("/queue")
+def queue():
+    return render_template("QueueAndMap.html")
 
-
-@views.route("/register_group", methods=["GET", "POST"])
+@views.route("/register_group", methods=["POST"])
 def register_group():
     if request.method == "Post":
         email = request.form.get("email")
@@ -39,8 +40,8 @@ def register_group():
             db.session.commit()
             flash("Your group has been created")
             return redirect(url_for("home"))
-    if request.method == "GET":
-        pass
+    # if request.method == "GET":
+    #     pass
     return render_template("register_group.html")
 
 
@@ -58,6 +59,4 @@ def leave_queue(group):
     return redirect(url_for("queue"))
 
 
-@views.route("/queue")
-def queue():
-    return render_template("queue.html", queue=queue)
+
