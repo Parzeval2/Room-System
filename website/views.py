@@ -1,22 +1,32 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import GroupInfo
+from flask import Blueprint
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
+
 from . import db
+from .models import GroupInfo
 
 views = Blueprint("view", __name__)
 
-#this file is essentially the switching for every new page on the site
-#itll redirect on some functions and display pages of others
+# this file is essentially the switching for every new page on the site
+# itll redirect on some functions and display pages of others
+
+
 @views.route("/")
 def sendhome():
     return redirect(url_for("home"))
+
+
 @views.route("/home")
 def hello_world():
-    return '<h1>Test</h1>'
+    return "<h1>Test</h1>"
 
 
 @views.route("/register_group", methods=["GET", "POST"])
 def register_group():
-    if request.method == 'Post':
+    if request.method == "Post":
         email = request.form.get("email")
         CWID = request.form.get("CWID")
         size = int(request.form.get("size"))
@@ -29,7 +39,7 @@ def register_group():
             db.session.commit()
             flash("Your group has been created")
             return redirect(url_for("home"))
-    if request.method == 'GET':
+    if request.method == "GET":
         pass
     return render_template("register_group.html")
 
