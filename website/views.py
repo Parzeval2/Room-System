@@ -5,7 +5,7 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
-from . import db
+from . import db, queueobject
 from .models import GroupInfo
 
 views = Blueprint("view", __name__)
@@ -23,14 +23,14 @@ def home():
     return render_template("HomePage.html")
 @views.route("/queue")
 def queue():
-    return render_template("QueueAndMap.html")
+    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject)
 
-@views.route("/register_group", methods=["POST"])
+@views.route("/register_group", methods=["POST", "GET"])
 def register_group():
     if request.method == "Post":
         email = request.form.get("email")
-        CWID = request.form.get("CWID")
-        size = int(request.form.get("size"))
+        CWID = request.form.get("ID")
+        size = int(request.form.get("Group Size"))
 
         if size < 3:
             flash("Groups must be at least 3 people")
@@ -38,25 +38,22 @@ def register_group():
             new_group = GroupInfo(email=email, CWID=CWID, size=size)
             db.session.add(new_group)
             db.session.commit()
-            flash("Your group has been created")
-            return redirect(url_for("home"))
-    # if request.method == "GET":
-    #     pass
-    return render_template("register_group.html")
-
-
-@views.route("/join_queue")
-def join_queue(group):
-    queue.join_queue(group)
-    flash("You've joined the queue")
+            queueobject.join_queue(new_group)
+            flash("Your group has been created and the queue has been joined")
+            return redirect(url_for("queue"))
     return redirect(url_for("queue"))
 
 
 @views.route("/leave_queue")
-def leave_queue(group):
-    queue.leave_queue(group)
-    flash("You've left the queue")
+def leave_queue(CWID=None):
+    if CWID is None:
+        return redirect(url_for("queue"))
+    for group in GroupInfo.query.filter_by(CWID=CWID):
+        if CWID == group.CWID:
+            queueobject.leave_queue(group)
+            flash("Your group has left the queue")
     return redirect(url_for("queue"))
+
 
 
 

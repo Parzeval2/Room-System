@@ -2,10 +2,11 @@ from os import path
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from .Queue import Queue
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+queueobject = Queue()
 # this entire file creates a package out of the website folder
 # we use create app to config everything and get it all in one place
 
