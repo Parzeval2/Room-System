@@ -41,13 +41,13 @@ def register_group():
             queueobject.join_queue(new_group)
             flash("Your group has been created and the queue has been joined")
             return redirect(url_for("queue"))
-    return redirect(url_for("queue"))
+    return redirect(url_for("view.queue"))
 
 
 @views.route("/leave_queue")
 def leave_queue(CWID=None):
     if CWID is None:
-        return redirect(url_for("queue"))
+        return redirect(url_for("view.queue"))
     for group in GroupInfo.query.filter_by(CWID=CWID):
         if CWID == group.CWID:
             queueobject.leave_queue(group)
