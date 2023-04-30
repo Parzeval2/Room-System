@@ -14,7 +14,7 @@ views = Blueprint("view", __name__)
 # itll redirect on some functions and display pages of others
 
 
-@views.route("/")
+@views.route("/", methods=['GET', 'POST'])
 def sendhome():
     return redirect("/home")
 
