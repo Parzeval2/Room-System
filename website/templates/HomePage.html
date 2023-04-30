@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="row" style="text-align:right"> <div class="col" style="padding:0px; margin: 0px">
-                    <button type="submit" class="nextpage">View Queue And Map</button>
+                    <a href="queue"><button type="submit" class="nextpage" formnovalidate>View Queue And Map</button></a>
                 </div></div>
 
                 <div class="blank"> 
@@ -31,23 +31,23 @@
                 <div class="row">
                     <div>
                     <h5>Email</h5>
-                    <input name="email">
+                    <textarea id="email" name="email" onkeyup="success()" placeholder="Input Email..." MaxLength="30" required></textarea></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div>
                     <h6>Student ID</h6>
-                    <input name="ID">
+                    <textarea id="ID" name="ID" onkeyup="success()" placeholder="Input CWID..." MaxLength="8" type="number" required></textarea></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div>
                     <h6>Group Size</h6>
-                    <input name="Group Size">
+                    <textarea id="size" name="size" onkeyup="success()" placeholder="Input group size..." MaxLength="2" required></textarea></textarea>
+                    <a href="register_group" style="position:relative"><button type="submit" class="enter" id="enter" name="enter">Enter</button></a>
                     </div>
-                    <button type="submit" class="enter">Enter</button>    
                 </div>
             </div>
         </div>
