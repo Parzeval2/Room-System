@@ -8,7 +8,7 @@ from flask import url_for
 from . import db, queueobject
 from .models import GroupInfo
 
-views = Blueprint("view", __name__)
+views = Blueprint("views", __name__)
 
 # this file is essentially the switching for every new page on the site
 # itll redirect on some functions and display pages of others
@@ -41,13 +41,13 @@ def register_group():
             queueobject.join_queue(new_group)
             flash("Your group has been created and the queue has been joined")
             return redirect(url_for("queue"))
-    return redirect(url_for("queue"))
+    return redirect(url_for("views.queue"))
 
 
 @views.route("/leave_queue")
 def leave_queue(CWID=None):
     if CWID is None:
-        return redirect(url_for("queue"))
+        return redirect(url_for("views.queue"))
     for group in GroupInfo.query.filter_by(CWID=CWID):
         if CWID == group.CWID:
             queueobject.leave_queue(group)
