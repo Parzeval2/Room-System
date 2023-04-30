@@ -1,3 +1,4 @@
+
 class Queue:
 
     def __init__(self):
@@ -8,3 +9,5 @@ class Queue:
 
     def leave_queue(self, group):
         self.groups.remove(group)
+
+

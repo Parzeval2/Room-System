@@ -14,6 +14,7 @@ views = Blueprint("view", __name__)
 # itll redirect on some functions and display pages of others
 
 
+
 @views.route("/", methods=['GET', 'POST'])
 def sendhome():
     return redirect("/home")
@@ -23,25 +24,23 @@ def home():
     return render_template("HomePage.html")
 @views.route("/queue")
 def queue():
-    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject)
+    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject, postion=None)
 
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
-    if request.method == "Post":
+    if request.method == "Post" or request.method == "GET":
         email = request.form.get("email")
         CWID = request.form.get("ID")
-        size = int(request.form.get("Group Size"))
+        size = request.form.get("size")
 
-        if size < 3:
-            flash("Groups must be at least 3 people")
-        else:
-            new_group = GroupInfo(email=email, CWID=CWID, size=size)
-            db.session.add(new_group)
-            db.session.commit()
-            queueobject.join_queue(new_group)
-            flash("Your group has been created and the queue has been joined")
-            return redirect(url_for("queue"))
-    return redirect(url_for("view.queue"))
+        new_group = GroupInfo(email=email, CWID=CWID, size=size)
+        db.session.add(new_group)
+        db.session.commit()
+        print(new_group.query.all())
+        queueobject.join_queue(new_group)
+        flash("Your group has been created and the queue has been joined")
+    position = findpos(CWID)
+    return redirect(url_for("view.queue", group=new_group, position=position, CWID=CWID))
 
 
 @views.route("/leave_queue")
@@ -54,6 +53,18 @@ def leave_queue(CWID=None):
             flash("Your group has left the queue")
     return redirect(url_for("queue"))
 
+def findpos(CWID):
+    #find the group in the database based on CWID
+    group = GroupInfo.query.filter_by(CWID=CWID).first()
+
+    #find the position of the group in the queue
+    position = queueobject.groups.index(group)
+    if position == 0:
+        position = "You are next in line"
+        return str(position)
+    else:
+        position = f"You are position {position + 1}"
+        return str(position)
 
 
 
