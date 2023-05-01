@@ -30,9 +30,10 @@ def queue(id):
     # find the cwid from the previous route
     position = findpos(id)
     print(position)
-    return render_template(
-        "QueueAndMap.html", group=GroupInfo, queue=queueobject, postion=position
-    )
+    return render_template("QueueAndMap.html",
+                           group=GroupInfo,
+                           queue=queueobject,
+                           postion=position)
 
 
 @views.route("/register_group", methods=["POST", "GET"])
