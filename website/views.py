@@ -31,6 +31,7 @@ def queue(id):
     position = findpos(id)
     return render_template("QueueAndMap.html", position=position)
 
+
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
     if request.method in ["Post", "GET"]:

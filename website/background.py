@@ -4,6 +4,7 @@ from flask import flash
 from models import GroupInfo
 from . import queueobject
 
+
 def background():
     rooms = {
         "111": Room(room_id="111"),

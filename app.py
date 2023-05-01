@@ -1,9 +1,8 @@
 from website import create_app
 
 
-
 app = create_app()
-#set debug mode
+# set debug mode
 
 if __name__ == "__main__":
 
