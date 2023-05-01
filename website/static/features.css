@@ -51,24 +51,14 @@ h5 {
 .nextpage:hover {
     background-color: #dfbbfb;
 }
-.leavequeue {
-    display: inline-flex;
-    background-color: red;
-    color: white;
-    font-size: 15px;
-    margin-top: 10px;
-    border: 1px;
-}
-.leavequeue:hover {
-    background-color: #FF6863;
-}
 .enter {
     border: 0px solid red;
     background-color: black;
     color: white;
     padding: 0px;
     padding-right: 5px;
-    margin-left: 4px;
+    margin-top: 11.5px;
+    margin-left: 215px;
     height: 30px;
     width: 47px;
     border-radius: 4px;
@@ -80,6 +70,11 @@ h5 {
     border: 1px solid #dfbbfb;
 }
 
+input {
+    width: 200px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
 .inputbox {
     border: 0px;
     background: #d3d3d3;
@@ -89,13 +84,6 @@ h5 {
     padding-left: 55px;
     padding-right: 55px;
     display: table;
-}
-textarea {
-    height: 27px;
-    width: 200px;
-    overflow:hidden;
-    resize:none;
-    font-size: 14px;
 }
 
 .blank {
