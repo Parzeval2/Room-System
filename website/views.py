@@ -5,7 +5,8 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
-from . import db, queueobject
+from . import db
+from . import queueobject
 from .models import GroupInfo
 
 views = Blueprint("view", __name__)
@@ -14,20 +15,26 @@ views = Blueprint("view", __name__)
 # itll redirect on some functions and display pages of others
 
 
-
-@views.route("/", methods=['GET', 'POST'])
+@views.route("/", methods=["GET", "POST"])
 def sendhome():
     return redirect("/home")
+
 
 @views.route("/home")
 def home():
     return render_template("HomePage.html")
-@views.route("/queue/<id>", methods=['GET', 'POST'])
+
+
+@views.route("/queue/<id>", methods=["GET", "POST"])
 def queue(id):
-    #find the cwid from the previous route
+    # find the cwid from the previous route
     position = findpos(id)
     print(position)
-    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject, postion=position)
+    return render_template("QueueAndMap.html",
+                           group=GroupInfo,
+                           queue=queueobject,
+                           postion=position)
+
 
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
@@ -43,7 +50,7 @@ def register_group():
 
         id = new_group.id
         flash("Your group has been created and the queue has been joined")
-    return redirect(url_for("view.queue", id = id))
+    return redirect(url_for("view.queue", id=id))
 
 
 @views.route("/leave_queue")
@@ -56,11 +63,12 @@ def leave_queue(CWID=None):
             flash("Your group has left the queue")
     return redirect(url_for("queue"))
 
+
 def findpos(id):
-    #find the group based on CWID
+    # find the group based on CWID
     group = GroupInfo.query.filter(GroupInfo.id == id).first()
     group = group.id
-    #find the position of the group in the queue
+    # find the position of the group in the queue
     position = queueobject.groups.index(group)
     if position == 0:
         position = "You are next in line"
@@ -68,6 +76,3 @@ def findpos(id):
     else:
         position = f"You are position {position + 1}"
         return str(position)
-
-
-
