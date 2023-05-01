@@ -29,11 +29,7 @@ def home():
 def queue(id):
     # find the cwid from the previous route
     position = findpos(id)
-    print(position)
-    return render_template("QueueAndMap.html",
-                           group=GroupInfo,
-                           queue=queueobject,
-                           postion=position)
+    return render_template("QueueAndMap.html", position=position)
 
 
 @views.route("/register_group", methods=["POST", "GET"])
@@ -71,8 +67,8 @@ def findpos(id):
     # find the position of the group in the queue
     position = queueobject.groups.index(group)
     if position == 0:
-        position = "You are next in line"
-        return str(position)
+        positionstr = "You are next in line"
+        return positionstr
     else:
-        position = f"You are position {position + 1}"
-        return str(position)
+        positionstr = f"You are position {position + 1}"
+        return positionstr
