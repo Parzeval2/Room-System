@@ -1,8 +1,10 @@
-from Room_Class import Room
-from timeloop import Timeloop
 from flask import flash
 from models import GroupInfo
+from Room_Class import Room
+from timeloop import Timeloop
+
 from . import queueobject
+
 
 def background():
     rooms = {
@@ -14,7 +16,7 @@ def background():
         "231": Room(room_id="231"),
         "311": Room(room_id="311"),
         "325": Room(room_id="325"),
-        "331": Room(room_id="331")
+        "331": Room(room_id="331"),
     }
     tl = Timeloop()
 
