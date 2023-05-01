@@ -1,7 +1,7 @@
 function startTimer(display) {
   var startTime = Date.now();
 
-  setInterval(function() {
+  setInterval(function () {
     var elapsedTime = Date.now() - startTime;
     var seconds = Math.floor(elapsedTime / 1000);
     var minutes = Math.floor(seconds / 60);
@@ -13,8 +13,8 @@ function startTimer(display) {
   }, 1000);
 }
 
-window.onload = function() {
-  var display = document.querySelector('#timer');
+window.onload = function () {
+  var display = document.querySelector("#timer");
   startTimer(display);
 };
 
