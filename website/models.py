@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from . import db
+
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
 

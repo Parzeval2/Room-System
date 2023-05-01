@@ -14,7 +14,7 @@ views = Blueprint("view", __name__)
 # itll redirect on some functions and display pages of others
 
 
-@views.route("/", methods=['GET', 'POST'])
+@views.route("/", methods=["GET", "POST"])
 def sendhome():
     return redirect("/home")
 
@@ -24,12 +24,14 @@ def home():
     return render_template("HomePage.html")
 
 
-@views.route("/queue/<id>", methods=['GET', 'POST'])
+@views.route("/queue/<id>", methods=["GET", "POST"])
 def queue(id):
     # find the cwid from the previous route
     position = findpos(id)
     print(position)
-    return render_template("QueueAndMap.html", group=GroupInfo, queue=queueobject, postion=position)
+    return render_template(
+        "QueueAndMap.html", group=GroupInfo, queue=queueobject, postion=position
+    )
 
 
 @views.route("/register_group", methods=["POST", "GET"])
