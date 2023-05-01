@@ -9,5 +9,3 @@ class Queue:
 
     def leave_queue(self, group):
         self.groups.remove(group.id)
-
-
