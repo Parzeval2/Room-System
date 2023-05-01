@@ -1,6 +1,12 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
 
-from . import db, queueobject
+from . import db
+from . import queueobject
 from .models import GroupInfo
 
 views = Blueprint("view", __name__)
