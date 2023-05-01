@@ -22,25 +22,28 @@ def sendhome():
 @views.route("/home")
 def home():
     return render_template("HomePage.html")
-@views.route("/queue")
-def queue():
-    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject, postion=None)
+@views.route("/queue/<id>", methods=['GET', 'POST'])
+def queue(id):
+    #find the cwid from the previous route
+    position = findpos(id)
+    print(position)
+    return render_template("QueueAndMap.html", group=GroupInfo,queue=queueobject, postion=position)
 
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
-    if request.method == "Post" or request.method == "GET":
-        email = request.form.get("email")
-        CWID = request.form.get("ID")
-        size = request.form.get("size")
+    if request.method in ["Post", "GET"]:
+        email = request.args.get("email")
+        CWID = request.args.get("ID")
+        size = request.args.get("size")
 
         new_group = GroupInfo(email=email, CWID=CWID, size=size)
         db.session.add(new_group)
         db.session.commit()
-        print(new_group.query.all())
         queueobject.join_queue(new_group)
+
+        id = new_group.id
         flash("Your group has been created and the queue has been joined")
-    position = findpos(CWID)
-    return redirect(url_for("view.queue", group=new_group, position=position, CWID=CWID))
+    return redirect(url_for("view.queue", id = id))
 
 
 @views.route("/leave_queue")
@@ -53,10 +56,10 @@ def leave_queue(CWID=None):
             flash("Your group has left the queue")
     return redirect(url_for("queue"))
 
-def findpos(CWID):
-    #find the group in the database based on CWID
-    group = GroupInfo.query.filter_by(CWID=CWID).first()
-
+def findpos(id):
+    #find the group based on CWID
+    group = GroupInfo.query.filter(GroupInfo.id == id).first()
+    group = group.id
     #find the position of the group in the queue
     position = queueobject.groups.index(group)
     if position == 0:
