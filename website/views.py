@@ -49,15 +49,12 @@ def register_group():
     return redirect(url_for("view.queue", id=id))
 
 
-@views.route("/leave_queue")
-def leave_queue(CWID=None):
-    if CWID is None:
-        return redirect(url_for("view.queue"))
-    for group in GroupInfo.query.filter_by(CWID=CWID):
-        if CWID == group.CWID:
-            queueobject.leave_queue(group)
-            flash("Your group has left the queue")
-    return redirect(url_for("queue"))
+@views.route("/leave_queue/<CWID>", methods=["GET", "POST"])
+def leave_queue(CWID):
+    group = GroupInfo.query.filter(GroupInfo.CWID == CWID).first()
+    group = group.id
+    queueobject.leave_queue(group)
+    return redirect(url_for("home"))
 
 
 def findpos(id):
