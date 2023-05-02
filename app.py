@@ -1,16 +1,25 @@
-from website import create_app, threading
-from website.models import background
+from flask import Flask, render_template
+from . import db
+from . import queueobject
 
-app = create_app()
+app = Flask(__name__)
 
-@app.before_first_request
-def start_background_task():
-    print("start background task")
-    thread = threading.Thread(target=background(app))
-    thread.daemon = True
-    thread.start()
+@app.route('/')
+def index():
 
-if __name__ == "__main__":
-    app.run()
+    data = ("Queue Order:       Group's CWID:")
+
+    for i in range(len(queueobject.groups)):
+        id = queueobject.groups[i]
+        group = GroupInfo.query.filter(GroupInfo.id == id).first()
+        
+        code = group.CWID
+        info = (f"   {i+1}               {code}")
+
+        data.append(info)
 
 
+    return render_template('index.html', data=data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
