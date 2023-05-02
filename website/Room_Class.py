@@ -11,3 +11,6 @@ class Room:
     @room_id.setter
     def room_id(self, room_id):
         self.__room_id = room_id
+
+    def reset_occupancy(self):
+        self.occupancy = False

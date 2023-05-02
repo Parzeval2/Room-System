@@ -1,5 +1,4 @@
 # db model for group information
-from datetime import datetime
 from .Room_Class import Room
 from flask import flash
 from . import db
@@ -15,7 +14,6 @@ class GroupInfo(db.Model):
     size = db.Column(db.Integer)
     email = db.Column(db.String(100))
     group_assigned_room = db.Column(db.Integer)
-    # start_time = db.Column(start_time())
 
 #this is a very fun little background task that runs and checks for empty rooms
 def background(app):
@@ -35,7 +33,7 @@ def background(app):
         }
         tl = Timeloop()
 
-        tl.job(interval=10)
+        @tl.job(interval=10)
         def check_empty_rooms():
             for key, room in rooms.items():
                 #check for queue object being empt
