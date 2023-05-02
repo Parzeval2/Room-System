@@ -1,7 +1,7 @@
 from os import path
-from flask import Flask, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 import threading
+from flask_sqlalchemy import SQLAlchemy
 from .Queue import Queue
 
 

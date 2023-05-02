@@ -2,10 +2,11 @@ from website import create_app, threading
 from website.models import background
 
 app = create_app()
-# set debug mode
+
 @app.before_first_request
 def start_background_task():
-    thread = threading.Thread(target=background)
+    print("start background task")
+    thread = threading.Thread(target=background(app))
     thread.daemon = True
     thread.start()
 
