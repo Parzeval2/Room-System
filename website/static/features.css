@@ -59,6 +59,7 @@ h5 {
     font-size: 15px;
     margin-top: 10px;
     border: 1px;
+    margin-bottom: 10px;
 }
 .leavequeue:hover {
     background-color: #FF6863;
@@ -102,6 +103,13 @@ h5 {
 }
 .signin:hover {
     border: transparent;
+}
+.mappage {
+    height: 200px;
+    width: 40px;
+    font-size: 40px;
+    background-color: #0000FF;
+    color: red;
 }
 
 .inputbox {
