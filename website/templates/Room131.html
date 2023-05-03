@@ -7,7 +7,6 @@
         <link rel="stylesheet" type="text/css" href="../static/features.css">
     </head>
     <body>
-        <form action="sign_in">
         <div class="container-fluid" style="text-align: center">
 
                 <div class="row">
@@ -20,16 +19,19 @@
                 </div>
 
                 <div class="row" style="margin-top: 5vh;"> <div class="col">
-                        <div class="occupation" id="occupation" style="background: l#90EE90">({ occupation_str })</div>
+                        <div class="occupation" id="occupation" style="background: #90EE90">{{ occupation_str }}</div>
                 </div></div>
 
                 <div class="row">
                     <div>
-                    <a href="leave_room" style="position:relative"><button type="submit" class="leaveroom" id="leaveroom" name="leaveroom">Leave Room</button></a>
+                        {% if occupation %}
+                    <a href="room/111/leave" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeGreen()" name="leaveroom">Leave Room</button></a>
+                        {%else%}
+                    <a href="room/111" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeRed()" name="leaveroom">Leave Room</button></a>
+                        {%endif%}
                     </div>
                 </div>
         </div>
-        </form>
         <script> function makeRed() {
             document.getElementById('occupation').style.background = "red";}
          </script>

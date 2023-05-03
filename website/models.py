@@ -3,6 +3,7 @@ from .Room_Class import Room
 from flask import flash
 from . import db
 from timeloop import Timeloop
+from datetime import timedelta
 
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
@@ -15,12 +16,7 @@ class GroupInfo(db.Model):
     email = db.Column(db.String(100))
     group_assigned_room = db.Column(db.Integer)
 
-#this is a very fun little background task that runs and checks for empty rooms
-def background(app):
-    from . import queueobject  # import queueobject here
-    print("Background task started")
-    with app.app_context():
-        rooms = {
+rooms = {
             "111": Room(room_id="111"),
             "125": Room(room_id="125"),
             "131": Room(room_id="131"),
@@ -31,18 +27,5 @@ def background(app):
             "325": Room(room_id="325"),
             "331": Room(room_id="331"),
         }
-        tl = Timeloop()
+#this is a very fun little background task that runs and checks for empty rooms
 
-        @tl.job(interval=10)
-        def check_empty_rooms():
-            for key, room in rooms.items():
-                #check for queue object being empt
-                if queueobject.groups:
-                    if room.occupancy is False:
-                        id = queueobject.groups[0]
-                        group = GroupInfo.query.filter(GroupInfo.id == id).first()
-                        group.group_assigned_room = room
-                        room.occupancy = True
-                        room.group = queueobject.groups[0]
-                        queueobject.leave_queue(queueobject.groups[0])
-                        flash(f"You have been assigned to Room {key}")

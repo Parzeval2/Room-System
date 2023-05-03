@@ -7,7 +7,7 @@ from flask import url_for
 
 from . import db
 from . import queueobject
-from .models import GroupInfo
+from .models import GroupInfo, rooms
 
 views = Blueprint("view", __name__)
 
@@ -55,6 +55,23 @@ def leave_queue(CWID):
     group = group.id
     queueobject.leave_queue(group)
     return redirect(url_for("home"))
+
+@views.route("room/<room_num>", methods=["GET", "POST"])
+def view_room(room_num):
+    current_room = rooms[f'{room_num}']
+    if current_room.occupancy == True:
+        text = "This room is occupied"
+        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=True)
+    if current_room.occupancy == False:
+        text = "This room is unoccupied"
+        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=False)
+
+@views.route("room/<room_num>/leave", methods=["GET", "POST"])
+def leave_room(room_num):
+    current_room = rooms[f'{room_num}']
+    text = "This room is unnoccupied"
+    current_room.occupancy = False
+    return redirect(url_for("view.view_room", room_num=room_num, occupation_str=text, occupation=False))
 
 
 def findpos(id):
