@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import flash
 from flask import redirect
-from flask import render_template
+from flask import render_template, request
 from flask import request
 from flask import url_for
 
@@ -29,7 +29,7 @@ def home():
 def queue(id):
     # find the cwid from the previous route
     position = findpos(id)
-    return render_template("QueueAndMap.html", position=position)
+    return render_template("QueueAndMap.html", position=position, id=id)
 
 
 @views.route("/register_group", methods=["POST", "GET"])
@@ -45,7 +45,7 @@ def register_group():
         queueobject.join_queue(new_group)
 
         id = new_group.id
-        flash("Your group has been created and the queue has been joined")
+        print("group made")
     return redirect(url_for("view.queue", id=id))
 
 
@@ -73,16 +73,49 @@ def leave_room(room_num):
     current_room.occupancy = False
     return redirect(url_for("view.view_room", room_num=room_num, occupation_str=text, occupation=False))
 
+@views.route("/refresh", methods=["GET", "POST"])
+def refresh():
+    referrer = request.referrer
+    referrer = referrer.split("/")
+    id = referrer[-1]
+    query = GroupInfo.query.filter(GroupInfo.id == id).first()
+    print("checking")
+    check = check_empty_rooms(id)
+    print(check)
+    if check:
+        return render_template("Available.html", available_str=check)
+    if check is None:
+        print("viewing queue")
+        return redirect(request.referrer)
+
 
 def findpos(id):
     # find the group based on CWID
     group = GroupInfo.query.filter(GroupInfo.id == id).first()
-    group = group.id
+    if group is None:
+        print("group not found")
+    id = group.id
     # find the position of the group in the queue
-    position = queueobject.groups.index(group)
+    position = queueobject.groups.index(id)
     if position == 0:
         positionstr = "You are next in line"
         return positionstr
     else:
         positionstr = f"You are position {position + 1}"
         return positionstr
+
+def check_empty_rooms(id):
+    for key, room in rooms.items():
+        #check for queue object being empt
+        if queueobject.groups:
+            if room.occupancy is False:
+                    group = GroupInfo.query.filter(GroupInfo.id == id).first()
+                    group.group_assigned_room = room
+                    room.occupancy = True
+                    room.group = queueobject.groups[0]
+                    queueobject.leave_queue(group)
+                    group.message = f"You have been assigned to room {key}"
+                    print(group.message)
+                    return group.message
+            else:
+                return None

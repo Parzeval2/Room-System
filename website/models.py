@@ -15,6 +15,7 @@ class GroupInfo(db.Model):
     size = db.Column(db.Integer)
     email = db.Column(db.String(100))
     group_assigned_room = db.Column(db.Integer)
+    message = db.Column(db.String(1000))
 
 rooms = {
             "111": Room(room_id="111"),
