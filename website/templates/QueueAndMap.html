@@ -45,14 +45,43 @@
 
             <div class="inputbox"> 
 
+                <div class = "row">
+                    <div>Floor {{ floor_int }}</div>
+                </div>
+
                 <div class="row">
-                    Maps go here, I will adjust size of other components to match once everything is in.
+                    <div>
+                    <button class="mappage" onclick="previousPage()" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;"><</button>
+                    <img id="map" src="../static/Floor1.png" style="width:300px; height:200px; margin-top:-25px">
+                    <button class="mappage" onclick="nextPage()" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">></button>
+                    </div>
                 </div>
             </div>
         </div>
         <script> function showDiv() {
                document.getElementById('showstuff').style.display = "block";
                document.getElementById('hidestuff').style.display = "none";}
+        </script>
+        <script>
+            var images = ["../static/Floor1.png","../static/Floor2.png","../static/Floor3.png"];
+            var currentImageIndex = 0;
+      
+            function nextPage() {
+              var image = document.getElementById('map');
+              currentImageIndex = (currentImageIndex + 1) % images.length;
+              image.src = images[currentImageIndex];
+            }
+            function previousPage() {
+              var image = document.getElementById('map');
+              if(currentImageIndex-1 < 0) {currentImageIndex = 3;}
+              currentImageIndex = (currentImageIndex - 1) % images.length;
+              image.src = images[currentImageIndex];
+            }
+        </script>
+        <script>
+            function roomReady(message) {
+                alert(message)
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     </body>
