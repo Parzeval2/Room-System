@@ -4,12 +4,14 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+from turbo_flask import Turbo
 
 from . import db
 from . import queueobject
 from .models import GroupInfo, rooms
 
 views = Blueprint("view", __name__)
+
 
 # this file is essentially the switching for every new page on the site
 # itll redirect on some functions and display pages of others
@@ -29,12 +31,14 @@ def queue(id):
     group = GroupInfo.query.filter(GroupInfo.id == id).first()
     id = group.id
     position = findpos(id)
-    return render_template("QueueAndMap.html", position=position)
-@views.route("/assignment/<id>", methods=["GET", "POST"])
-def assignment(id):
-    group = GroupInfo.query.filter(GroupInfo.id == id).first()
-    assignedroom = group.popup
-    return render_template("Assignment.html", available_str=assignedroom)
+    return render_template("QueueAndMap.html", position=position, message=None, popup=False)
+
+
+# @views.route("/assignment/<id>", methods=["GET", "POST"])
+# def assignment(id):
+#     group = GroupInfo.query.filter(GroupInfo.id == id).first()
+#     assignedroom = group.popup
+#     return render_template("Assignment.html", available_str=assignedroom)
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
     if request.method in ["Post", "GET"]:
@@ -90,7 +94,7 @@ def findpos(id):
         positionstr = f"You are position {position + 1}"
         return positionstr
 
-def check_empty_rooms(app):
+def check_empty_rooms(app, turbo):
     with app.app_context():
         for key, room in rooms.items():
             # check for queue object being empt
@@ -104,5 +108,4 @@ def check_empty_rooms(app):
                     queueobject.leave_queue(group)
                     print(key)
                     group.popup = f"You have been assigned to room {key}"
-                    print(group.popup)
-                    return redirect(url_for("view.assignment", id=id))
+                    turbo.push(url_for("view.queue", message=group.popup, position="", id=group.id, popup=True))

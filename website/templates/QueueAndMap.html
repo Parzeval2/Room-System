@@ -6,10 +6,13 @@
         <link rel = "icon" href = "https://brand.latech.edu/wp-content/uploads/sites/13/2021/03/favicon-300x300-1.png" type = "image/x-icon">
         <link rel="stylesheet" type="text/css" href="../static/features.css">
     </head>
-    <body>
-        {% if message is not none %}
+    {{turbo()}}
+    {% if popup == True %}
+        <script>
             roomReady(message)
-        {%endif %}
+        </script>
+    {%endif%}
+    <body>
                 <div class="row">
                     <section class="header" style="margin-bottom: 5vh;">
                     <h2 class="banner">IESB Study Rooms</h2>

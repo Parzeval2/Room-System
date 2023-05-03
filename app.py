@@ -1,17 +1,18 @@
 from website import create_app, threading, timeloop
-from website import queueobject
-from website.models import GroupInfo, rooms
 from datetime import timedelta
-from flask import request, redirect, url_for, render_template
 from website.views import check_empty_rooms
+from turbo_flask import Turbo
+
+
 app = create_app()
+turbo = Turbo(app)
 app.use_reloader = False
 
 
 if __name__ == "__main__":
-    @timeloop.job(interval=timedelta(seconds=5))
+    @timeloop.job(interval=timedelta(seconds=10))
     def background():
-        check_empty_rooms(app)
+        check_empty_rooms(app, turbo)
     app.run()
 
 
