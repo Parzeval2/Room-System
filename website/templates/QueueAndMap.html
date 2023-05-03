@@ -20,10 +20,12 @@
                 </div>
         
                 <div class="row"> 
+                    {% for message in get_flashed_messages() %} 
                         <script>
                            var flashthis = {{ message }};
                            alert(flashthis);
                        </script>
+                    {%endfor%}
                 </div>
 
         <div class="container-fluid" style="width: 50%; float:left; text-align: center">
