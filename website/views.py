@@ -43,7 +43,7 @@ def register_group():
         db.session.add(new_group)
         db.session.commit()
         queueobject.join_queue(new_group)
-
+        print(queueobject.groups)
         id = new_group.id
         print("group made")
     return redirect(url_for("view.queue", id=id))
@@ -107,15 +107,13 @@ def findpos(id):
 def check_empty_rooms(id):
     for key, room in rooms.items():
         #check for queue object being empt
-        if queueobject.groups:
             if room.occupancy is False:
-                    group = GroupInfo.query.filter(GroupInfo.id == id).first()
-                    group.group_assigned_room = room
-                    room.occupancy = True
-                    room.group = queueobject.groups[0]
-                    queueobject.leave_queue(group)
-                    group.message = f"You have been assigned to room {key}"
-                    print(group.message)
-                    return group.message
-            else:
-                return None
+                group = GroupInfo.query.filter(GroupInfo.id == id).first()
+                group.group_assigned_room = room
+                room.occupancy = True
+                room.group = queueobject.groups[0]
+                queueobject.leave_queue(group)
+                group.message = f"You have been assigned to room {key}"
+                print(group.message)
+                return group.message
+    return None
