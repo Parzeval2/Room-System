@@ -14,7 +14,6 @@ views = Blueprint("view", __name__)
 # this file is essentially the switching for every new page on the site
 # itll redirect on some functions and display pages of others
 
-
 @views.route("/", methods=["GET", "POST"])
 def sendhome():
     return redirect("/home")
@@ -27,11 +26,15 @@ def home():
 
 @views.route("/queue/<id>", methods=["GET", "POST"])
 def queue(id):
-    # find the cwid from the previous route
+    group = GroupInfo.query.filter(GroupInfo.id == id).first()
+    id = group.id
     position = findpos(id)
     return render_template("QueueAndMap.html", position=position)
-
-
+@views.route("/assignment/<id>", methods=["GET", "POST"])
+def assignment(id):
+    group = GroupInfo.query.filter(GroupInfo.id == id).first()
+    assignedroom = group.popup
+    return render_template("Assignment.html", available_str=assignedroom)
 @views.route("/register_group", methods=["POST", "GET"])
 def register_group():
     if request.method in ["Post", "GET"]:
@@ -86,3 +89,20 @@ def findpos(id):
     else:
         positionstr = f"You are position {position + 1}"
         return positionstr
+
+def check_empty_rooms(app):
+    with app.app_context():
+        for key, room in rooms.items():
+            # check for queue object being empt
+            if queueobject.groups:
+                if room.occupancy is False:
+                    id = queueobject.groups[0]
+                    group = GroupInfo.query.filter(GroupInfo.id == id).first()
+                    group.group_assigned_room = room
+                    room.occupancy = True
+                    room.group = queueobject.groups[0]
+                    queueobject.leave_queue(group)
+                    print(key)
+                    group.popup = f"You have been assigned to room {key}"
+                    print(group.popup)
+                    return redirect(url_for("view.assignment", id=id))
