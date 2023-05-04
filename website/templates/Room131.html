@@ -2,7 +2,7 @@
 <html>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-        <title>Room 131</title>
+        <title>Room {{room}}</title>
         <link rel = "icon" href = "https://brand.latech.edu/wp-content/uploads/sites/13/2021/03/favicon-300x300-1.png" type = "image/x-icon">
         <link rel="stylesheet" type="text/css" href="../static/features.css">
     </head>
@@ -11,7 +11,7 @@
 
                 <div class="row">
                     <section class="header">
-                    <h2 class="banner">Room 131</h2>
+                    <h2 class="banner">Room {{room}}</h2>
                     </section>
                 </div>
 
@@ -25,9 +25,9 @@
                 <div class="row">
                     <div>
                         {% if occupation %}
-                    <a href="room/111/leave" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeGreen()" name="leaveroom">Leave Room</button></a>
+                    <a href="{{url_for('view.leave_room', room_num=room)}}" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeGreen()" name="leaveroom">Leave Room</button></a>
                         {%else%}
-                    <a href="room/111" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeRed()" name="leaveroom">Leave Room</button></a>
+                    <a href="{{(request.refferer)}}" style="position:relative"><button type="submit" class="leaveroom"  onclick="makeRed()" name="leaveroom">Leave Room</button></a>
                         {%endif%}
                     </div>
                 </div>

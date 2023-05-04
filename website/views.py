@@ -62,10 +62,10 @@ def view_room(room_num):
     current_room = rooms[f'{room_num}']
     if current_room.occupancy == True:
         text = "This room is occupied"
-        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=True)
+        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=True, room=room_num)
     if current_room.occupancy == False:
         text = "This room is unoccupied"
-        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=False)
+        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=False, room=room_num)
 
 @views.route("room/<room_num>/leave", methods=["GET", "POST"])
 def leave_room(room_num):
@@ -113,7 +113,7 @@ def check_empty_rooms(id):
                 group.group_assigned_room = room
                 room.occupancy = True
                 room.group = queueobject.groups[0]
-                queueobject.leave_queue(group)
+                queueobject.leave_queue(group.id)
                 group.message = f"You have been assigned to room {key}"
                 print(group.message)
                 return group.message
