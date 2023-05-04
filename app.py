@@ -1,6 +1,4 @@
-from website import create_app, threading
-from website import queueobject
-from website.models import GroupInfo, rooms
+from website import create_app
 
 
 app = create_app()

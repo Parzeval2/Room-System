@@ -1,9 +1,6 @@
 # db model for group information
 from .Room_Class import Room
-from flask import flash
 from . import db
-from timeloop import Timeloop
-from datetime import timedelta
 
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
