@@ -1,6 +1,6 @@
 # db model for group information
-from .Room_Class import Room
 from . import db
+from .Room_Class import Room
 
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables

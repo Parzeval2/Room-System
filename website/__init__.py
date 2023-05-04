@@ -1,8 +1,9 @@
 from os import path
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .Queue import Queue
 
+from .Queue import Queue
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
