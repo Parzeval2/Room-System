@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Textarea Input Example</title>
+	<script>
+		function checkInput() {
+			// Get the value of the textarea
+			var email = document.getElementById("email").value;
+            var cwid = document.getElementById("ID").value;
+            var size = document.getElementById("size").value;
+
+            var check1=true; var check2=true; var check3=true;
+            var alertText = ""
+
+            // checks if email is in correct format and that it an latech email
+            var len = email.length
+            var char = email.substring(0, 3)
+            var num = email.substring(3, 6)
+            var mail = email.slice(-11)
+
+            if ( !(isNaN(char) && !isNaN(num) && mail === "@latech.edu") ) 
+            {
+				alertText += ("Email must be a valid Louisiana Tech email.\n");
+                check1=false;
+			} 
+
+			// Checks if CWID is in correct format
+			if ( !(!isNaN(cwid) && cwid.length == 8) )
+            { 
+                alertText += ("ID must be an 8 digit number (Your CWID).\n");
+                check2=false; 
+            } 
+
+
+            // Checks if group size is a number between 3 and 10
+			if ( !(!isNaN(size) && size >= 3 && size <=10) )
+            { 
+                alertText += ("Group size must be a number between 3 and 10.\n");
+                check3=false;
+            } 
+
+            if ( check1==false || check2==false || check3==false)
+            {
+                alert(alertText)
+            }
+
+        }
+	</script>
+</head>
+<body>
+	<textarea id="email" name="email"></textarea>
+    <textarea id="ID" name="ID"></textarea>
+    <textarea id="size" name="size"></textarea>
+
+	<button onclick="checkInput()">Check Input</button>
+</body>
+</html>
