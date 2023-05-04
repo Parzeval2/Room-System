@@ -6,5 +6,5 @@ class Queue:
     def join_queue(self, group):
         self.groups.append(group.id)
 
-    def leave_queue(self, group):
-        self.groups.remove(group.id)
+    def leave_queue(self, id):
+        self.groups.remove(id)

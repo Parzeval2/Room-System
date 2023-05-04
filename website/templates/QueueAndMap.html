@@ -31,7 +31,7 @@
                     <div>{{ position }}</div>
                     <div id="hidestuff"><button type="submit" class="leavequeue" onclick="showDiv()" formnovalidate>■ Leave Queue</button></div>
                     <div style="display:none" id="showstuff">
-                        <a href="leave_queue" style="position:relative"><button type="submit" class="leavequeue">■ Leave Queue</button></a>
+                        <a href="{{ url_for('view.leave_queue', id=id) }}" style="position:relative"><button type="submit" class="leavequeue">■ Leave Queue</button></a>
                         <div class="leavequeueHint">Hit Leave Queue again when done</div>
                         <textarea id="leavequeueCWID" name="leavequeueCWID" placeholder="Input CWID..." maxlength="8" required></textarea>
                     </div>

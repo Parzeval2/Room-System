@@ -49,12 +49,14 @@ def register_group():
     return redirect(url_for("view.queue", id=id))
 
 
-@views.route("/leave_queue/<CWID>", methods=["GET", "POST"])
-def leave_queue(CWID):
-    group = GroupInfo.query.filter(GroupInfo.CWID == CWID).first()
+@views.route("/leave_queue/<id>", methods=["GET", "POST"])
+def leave_queue(id):
+    print("leave_queue")
+    group = GroupInfo.query.filter(GroupInfo.id == id).first()
     group = group.id
     queueobject.leave_queue(group)
-    return redirect(url_for("home"))
+    print(queueobject.groups)
+    return redirect(url_for("view.home"))
 
 @views.route("room/<room_num>", methods=["GET", "POST"])
 def view_room(room_num):
