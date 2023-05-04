@@ -27,27 +27,62 @@
                 <div class="row">
                     <div>
                     <h5>Email</h5>
-                    <textarea id="email" name="email" onkeyup="success()" placeholder="Input Email..." MaxLength="30" required></textarea>
+                    <textarea id="email" name="email" placeholder="Input Email..." MaxLength="30" required></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div>
                     <h6>Student ID</h6>
-                    <textarea id="ID" name="ID" onkeyup="success()" placeholder="Input CWID..." MaxLength="8" type="number" required></textarea>
+                    <textarea id="ID" name="ID" placeholder="Input CWID..." MaxLength="8" type="number" required></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div>
                     <h6>Group Size</h6>
-                    <textarea id="size" name="size" onkeyup="success()" placeholder="Input group size..." MaxLength="2" required></textarea>
-                    <a href="register_group" style="position:relative"><button type="submit" class="enter" id="enter" name="enter">Enter</button></a>
+                    <textarea id="size" name="size" placeholder="Input group size..." MaxLength="2" required></textarea>
+                    <button type="button" class="enter" id="enterDummy" name="enterDummy" style="margin-top: -1px">Enter</button>
+                    <a href="register_group"><button type="submit" class="enter" id="enter" name="enter" style="display:none">Enter</button></a>
                     </div>
                 </div>
             </div>
         </div>
         </form>
+        <script>
+            const button1 = document.getElementById("enterDummy");
+            button1.addEventListener("click", checkInput);
+
+            function checkInput() {
+                // Get the value of the textarea
+                var email = document.getElementById("email").value;
+                var cwid = document.getElementById("ID").value;
+                var size = document.getElementById("size").value;
+                var check1=true; var check2=true; var check3=true;
+                var alertText = ""
+                // checks if email is in correct format and that it an latech email
+                var len = email.length
+                var char = email.substring(0, 3)
+                var num = email.substring(3, 6)
+                var mail = email.slice(-11)
+
+                if ( !(isNaN(char) && !isNaN(num) && mail === "@latech.edu") ) {
+                    alertText += ("Email must be a valid Louisiana Tech email.\n");
+                    check1=false;} 
+                // Checks if CWID is in correct format
+                if ( !(!isNaN(cwid) && cwid.length == 8) ){ 
+                    alertText += ("ID must be an 8 digit number (Your CWID).\n");
+                    check2=false; } 
+                // Checks if group size is a number between 3 and 10
+                if ( !(!isNaN(size) && size >= 3 && size <=10) ){ 
+                    alertText += ("Group size must be a number between 3 and 10.\n");
+                    check3=false;} 
+                if (email=='' || cwid=='' || size==''){} 
+                else if ( check1==false || check2==false || check3==false){
+                    alert(alertText)} 
+                else {
+                    document.getElementById("enter").click();}}
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     </body>
 </html>
