@@ -1,7 +1,13 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
 
-from . import db, queueobject
-from .models import GroupInfo, rooms
+from . import db
+from . import queueobject
+from .models import GroupInfo
+from .models import rooms
 
 views = Blueprint("view", __name__)
 
