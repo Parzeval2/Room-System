@@ -14,16 +14,16 @@ class GroupInfo(db.Model):
     group_assigned_room = db.Column(db.Integer)
     message = db.Column(db.String(1000))
 
-rooms = {
-            "111": Room(room_id="111"),
-            "125": Room(room_id="125"),
-            "131": Room(room_id="131"),
-            "211": Room(room_id="211"),
-            "225": Room(room_id="225"),
-            "231": Room(room_id="231"),
-            "311": Room(room_id="311"),
-            "325": Room(room_id="325"),
-            "331": Room(room_id="331"),
-        }
-#this is a very fun little background task that runs and checks for empty rooms
 
+rooms = {
+    "111": Room(room_id="111"),
+    "125": Room(room_id="125"),
+    "131": Room(room_id="131"),
+    "211": Room(room_id="211"),
+    "225": Room(room_id="225"),
+    "231": Room(room_id="231"),
+    "311": Room(room_id="311"),
+    "325": Room(room_id="325"),
+    "331": Room(room_id="331"),
+}
+# this is a very fun little background task that runs and checks for empty rooms

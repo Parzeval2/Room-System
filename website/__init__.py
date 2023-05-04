@@ -27,8 +27,6 @@ def create_app():
         db.drop_all()
         db.create_all()
 
-
-
     return app
 
 
@@ -36,4 +34,3 @@ def create_db(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Database created")
-
