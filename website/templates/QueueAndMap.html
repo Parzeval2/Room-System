@@ -8,9 +8,13 @@
     </head>
     <body>
                 <div class="row">
-                    <section class="header" style="margin-bottom: 5vh;">
+                    <section class="header">
                     <h2 class="banner">IESB Study Rooms</h2>
                     </section>
+                </div>
+
+                <div class="row" style="text-align: center;">
+                    <a href="{{ url_for('view.refresh', id=id) }}"><button type="submit" class="refresh" style="margin-bottom: 5vh;">Refresh</button></a>
                 </div>
 
         <div class="container-fluid" style="width: 50%; float:left; text-align: center">
@@ -27,7 +31,7 @@
                     <div>{{ position }}</div>
                     <div id="hidestuff"><button type="submit" class="leavequeue" onclick="showDiv()" formnovalidate>■ Leave Queue</button></div>
                     <div style="display:none" id="showstuff">
-                        <a href="leave_queue" style="position:relative"><button type="submit" class="leavequeue">■ Leave Queue</button></a>
+                        <a href="{{ url_for('view.leave_queue', id=id) }}" style="position:relative"><button type="submit" class="leavequeue">■ Leave Queue</button></a>
                         <div class="leavequeueHint">Hit Leave Queue again when done</div>
                         <textarea id="leavequeueCWID" name="leavequeueCWID" placeholder="Input CWID..." maxlength="8" required></textarea>
                     </div>

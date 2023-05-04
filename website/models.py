@@ -1,9 +1,6 @@
 # db model for group information
 from .Room_Class import Room
-from flask import flash
 from . import db
-from timeloop import Timeloop
-from datetime import timedelta
 
 # this database model is very similar to a clas structure but store info
 # more efficiently because its built using an SQL database in tables
@@ -15,6 +12,7 @@ class GroupInfo(db.Model):
     size = db.Column(db.Integer)
     email = db.Column(db.String(100))
     group_assigned_room = db.Column(db.Integer)
+    message = db.Column(db.String(1000))
 
 rooms = {
             "111": Room(room_id="111"),
