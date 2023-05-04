@@ -88,10 +88,10 @@ def leave_room(room_num):
     text = "This room is unnoccupied"
     current_room.occupancy = False
     return redirect(
-        url_for(
-            "view.view_room", room_num=room_num, occupation_str=text, occupation=False
-        )
-    )
+        url_for("view.view_room",
+                room_num=room_num,
+                occupation_str=text,
+                occupation=False))
 
 
 @views.route("/refresh", methods=["GET", "POST"])
