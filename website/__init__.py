@@ -1,8 +1,9 @@
 from os import path
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .Queue import Queue
 
+from .Queue import Queue
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -27,8 +28,6 @@ def create_app():
         db.drop_all()
         db.create_all()
 
-
-
     return app
 
 
@@ -36,4 +35,3 @@ def create_db(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Database created")
-

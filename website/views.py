@@ -6,7 +6,8 @@ from flask import url_for
 
 from . import db
 from . import queueobject
-from .models import GroupInfo, rooms
+from .models import GroupInfo
+from .models import rooms
 
 views = Blueprint("view", __name__)
 
@@ -57,22 +58,41 @@ def leave_queue(id):
     print(queueobject.groups)
     return redirect(url_for("view.home"))
 
+
 @views.route("room/<room_num>", methods=["GET", "POST"])
 def view_room(room_num):
-    current_room = rooms[f'{room_num}']
+    current_room = rooms[f"{room_num}"]
     if current_room.occupancy == True:
         text = "This room is occupied"
-        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=True, room=room_num)
+        return render_template(
+            "Room131.html",
+            room_num=room_num,
+            occupation_str=text,
+            occupation=True,
+            room=room_num,
+        )
     if current_room.occupancy == False:
         text = "This room is unoccupied"
-        return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=False, room=room_num)
+        return render_template(
+            "Room131.html",
+            room_num=room_num,
+            occupation_str=text,
+            occupation=False,
+            room=room_num,
+        )
+
 
 @views.route("room/<room_num>/leave", methods=["GET", "POST"])
 def leave_room(room_num):
-    current_room = rooms[f'{room_num}']
+    current_room = rooms[f"{room_num}"]
     text = "This room is unnoccupied"
     current_room.occupancy = False
-    return redirect(url_for("view.view_room", room_num=room_num, occupation_str=text, occupation=False))
+    return redirect(
+        url_for("view.view_room",
+                room_num=room_num,
+                occupation_str=text,
+                occupation=False))
+
 
 @views.route("/refresh", methods=["GET", "POST"])
 def refresh():
@@ -105,16 +125,17 @@ def findpos(id):
         positionstr = f"You are position {position + 1}"
         return positionstr
 
+
 def check_empty_rooms(id):
     for key, room in rooms.items():
-        #check for queue object being empt
-            if room.occupancy is False:
-                group = GroupInfo.query.filter(GroupInfo.id == id).first()
-                group.group_assigned_room = room
-                room.occupancy = True
-                room.group = queueobject.groups[0]
-                queueobject.leave_queue(group.id)
-                group.message = f"You have been assigned to room {key}"
-                print(group.message)
-                return group.message
+        # check for queue object being empt
+        if room.occupancy is False:
+            group = GroupInfo.query.filter(GroupInfo.id == id).first()
+            group.group_assigned_room = room
+            room.occupancy = True
+            room.group = queueobject.groups[0]
+            queueobject.leave_queue(group.id)
+            group.message = f"You have been assigned to room {key}"
+            print(group.message)
+            return group.message
     return None
