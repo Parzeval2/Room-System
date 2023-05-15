@@ -14,7 +14,7 @@ class GroupInfo(db.Model):
     group_assigned_room = db.Column(db.Integer)
     message = db.Column(db.String(1000))
 
-rooms = {
+rooms = { # written by max
             "111": Room(room_id="111"),
             "125": Room(room_id="125"),
             "131": Room(room_id="131"),

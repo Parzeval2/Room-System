@@ -25,7 +25,7 @@ def home():
 
 
 @views.route("/queue/<id>", methods=["GET", "POST"])
-def queue(id):
+def queue(id):# co-written by Max
     # find the cwid from the previous route
     position = findpos(id)
     return render_template("QueueAndMap.html", position=position, id=id)
@@ -49,7 +49,7 @@ def register_group():
 
 
 @views.route("/leave_queue/<id>", methods=["GET", "POST"])
-def leave_queue(id):
+def leave_queue(id): # co-written by Max
     print("leave_queue")
     group = GroupInfo.query.filter(GroupInfo.id == id).first()
     group = group.id
@@ -58,7 +58,7 @@ def leave_queue(id):
     return redirect(url_for("view.home"))
 
 @views.route("room/<room_num>", methods=["GET", "POST"])
-def view_room(room_num):
+def view_room(room_num): # co-written by Max
     current_room = rooms[f'{room_num}']
     if current_room.occupancy == True:
         text = "This room is occupied"
@@ -68,14 +68,14 @@ def view_room(room_num):
         return render_template("Room131.html", room_num=room_num, occupation_str=text, occupation=False, room=room_num)
 
 @views.route("room/<room_num>/leave", methods=["GET", "POST"])
-def leave_room(room_num):
+def leave_room(room_num): # co-written by Max
     current_room = rooms[f'{room_num}']
     text = "This room is unnoccupied"
     current_room.occupancy = False
     return redirect(url_for("view.view_room", room_num=room_num, occupation_str=text, occupation=False))
 
 @views.route("/refresh", methods=["GET", "POST"])
-def refresh():
+def refresh(): # co-written by Max
     referrer = request.referrer
     referrer = referrer.split("/")
     id = referrer[-1]
@@ -90,7 +90,7 @@ def refresh():
         return redirect(request.referrer)
 
 
-def findpos(id):
+def findpos(id): # co-written by Max
     # find the group based on CWID
     group = GroupInfo.query.filter(GroupInfo.id == id).first()
     if group is None:
@@ -105,7 +105,7 @@ def findpos(id):
         positionstr = f"You are position {position + 1}"
         return positionstr
 
-def check_empty_rooms(id):
+def check_empty_rooms(id): # co-written by Max
     for key, room in rooms.items():
         #check for queue object being empt
             if room.occupancy is False:
